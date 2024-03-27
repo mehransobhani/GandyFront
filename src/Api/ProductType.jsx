@@ -1,25 +1,37 @@
 import {BaseUrl} from "../env";
-export async function getProductType() {
-    const response = await fetch(BaseUrl + "",
-        {
-            method: '',
-            body: JSON.stringify(
-                {
-                }
-            ),
+export async function getProductType(page) {
+    const response = await fetch(BaseUrl + "ptype/getAllProductType/"+page,
+         {
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             }
         }
     )
-    return response;
+    return response.json();
 }
 export async function removeProductType(id) {
-    const response = await fetch(BaseUrl + "",
+    const response = await fetch(BaseUrl + "ptype/deleteById/"+id,
         {
-            method: '',
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }
+    )
+    return response;
+}
+export async function editProductType(name,parentProductType,id) {
+    const response = await fetch(BaseUrl + "ptype/add",
+        {
+            method: 'POST',
             body: JSON.stringify(
                 {
+                    id:id,
+                    name:name,
+                    parentProductType:{
+                        id:parentProductType
+                    }
                 }
             ),
             headers: {
@@ -29,12 +41,16 @@ export async function removeProductType(id) {
     )
     return response;
 }
-export async function editProductType() {
-    const response = await fetch(BaseUrl + "",
+export async function insertProductType(name,parentProductType) {
+    const response = await fetch(BaseUrl + "ptype/add",
         {
-            method: '',
+            method: 'POST',
             body: JSON.stringify(
                 {
+                    name:name,
+                    parentProductType:{
+                        id:parentProductType
+                    }
                 }
             ),
             headers: {
@@ -44,12 +60,13 @@ export async function editProductType() {
     )
     return response;
 }
-export async function insertProductType() {
-    const response = await fetch(BaseUrl + "",
+export async function getProductTypeByWords(name) {
+    const response = await fetch(BaseUrl + "ptype/getProductTypeByWords",
         {
-            method: '',
+            method: 'POST',
             body: JSON.stringify(
                 {
+                    name:name,
                 }
             ),
             headers: {
